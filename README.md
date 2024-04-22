@@ -1,7 +1,7 @@
 # Dart Cricket Scorer
 
 This is a scoring web app for the [Dart Cricket game](https://en.wikipedia.org/wiki/Cricket_(darts)).<br>
-This is a React project and it was created with [Create React App](https://github.com/facebookincubator/create-react-app).<br>
+This is a React and Typescript project.<br>
 The project is live at http://cricket.doruktuna.org/.<br>
 
 ## For Developers

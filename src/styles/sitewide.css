@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Protest+Strike&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Oswald', sans-serif;
+}
+
+* {
+  font-family: 'Oswald', sans-serif;
+}
+
+pre,
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
