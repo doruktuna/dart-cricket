@@ -1,30 +1,27 @@
-# React + TypeScript + Vite
+# Dart Cricket Scorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a scoring web app for the [Dart Cricket game](https://en.wikipedia.org/wiki/Cricket_(darts)).<br>
+This is a React project and it was created with [Create React App](https://github.com/facebookincubator/create-react-app).<br>
+The project is live at http://cricket.doruktuna.org/.<br>
 
-Currently, two official plugins are available:
+## For Developers
+Feel free to fork and develop new features.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## TO-DO List (For myself)
+- Add Undo function (people can make mistakes)
+- Make the pass button more clear 
+    + Change the color
+- Make the current player more clear
+    + Make all shots and score of current player primary color
+    + Also make it colorful in info box too
+- Disable a shot when all players are closed it
+    + Disable the buttons and make them gray
+    + Put an X sign on the shot string
+     
+## Fun Bonus Additions (For myself)
+- Visual Improvements
+    + Animate score changes
+- Give more info beneath the score
+    + Score differences with other players
+    + Use green and red colors
+    + Use smaller fonts
