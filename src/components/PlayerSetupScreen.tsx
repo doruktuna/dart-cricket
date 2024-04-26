@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/player-setup-screen.css';
-import deleteIcon from '../../public/icons/x-mark.svg';
+import deleteIcon from '/icons/x-mark.svg';
 
 type PlayerSetupScreenProps = {
   nameSetupFinished: (names: string[]) => void;
@@ -10,7 +10,7 @@ function PlayerSetupScreen({ nameSetupFinished }: PlayerSetupScreenProps) {
   const [names, setNames] = useState(loadData);
 
   // Load data when the page first loads
-  function loadData() {
+  function loadData(): string[] {
     const loadDataRaw = localStorage.getItem("CRICKET_DATA-names");
     console.log("Loading data", loadDataRaw);
     if (loadDataRaw) {

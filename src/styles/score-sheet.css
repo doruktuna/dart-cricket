@@ -1,0 +1,55 @@
+table.score-sheet {
+  border-collapse: collapse;
+
+  th,
+  td {
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+  }
+
+  th.no-bottom-border,
+  td.no-bottom-border {
+    border-bottom: 2px transparent solid;
+  }
+
+  th.no-right-border,
+  td.no-right-border {
+    border-right: 2px transparent solid;
+  }
+
+  .player-cell.current-player {
+    color: red;
+  }
+
+  .player-cell,
+  .shot-cell {
+    font-size: 2rem;
+    text-align: center;
+    padding: 10px 30px;
+  }
+
+  img {
+    width: 40px;
+    margin: 0 auto;
+    line-height: 0;
+    display: block;
+  }
+}
+
+@media (max-width: 1300px) {
+
+  .player-cell,
+  .shot-cell {
+    font-size: 2vw;
+    height: 3vw;
+  }
+}
+
+@media (max-width: 800px) {
+
+  .player-cell,
+  .shot-cell {
+    font-size: 1rem;
+    height: 1.5rem;
+  }
+}
