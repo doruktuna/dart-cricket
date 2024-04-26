@@ -1,0 +1,70 @@
+.shot-button-row {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  line-height: 0;
+}
+
+.shot-button {
+  font-size: 1.5rem;
+  margin-right: 10px;
+  padding: 10px;
+  border-radius: 16px;
+  color: beige;
+
+  &:hover {
+    background-color: green;
+    color: white;
+  }
+
+  &:focus {
+    outline: 2px solid black;
+  }
+}
+
+.shot-button.single,
+.shot-button.pass {
+  background-color: #A1CCD1;
+}
+
+.shot-button.double {
+  background-color: darkorange;
+}
+
+.shot-button.triple {
+  background-color: darkorchid;
+}
+
+.shot-button.single:hover,
+.shot-button.double:hover,
+.shot-button.triple:hover,
+.shot-button.pass:hover {
+  background-color: green;
+  color: white;
+}
+
+@media (max-width: 1300px) {
+  .shot-button-row {
+    margin-bottom: 1vw;
+  }
+
+  .shot-button {
+    font-size: 1.5vw;
+    margin-right: 1vw;
+    padding: 1vw;
+    border-radius: 1.5vw;
+  }
+}
+
+@media (max-width: 800px) {
+  .shot-button-row {
+    margin-bottom: 1vw;
+  }
+
+  .shot-button {
+    font-size: 1rem;
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 15px;
+  }
+}

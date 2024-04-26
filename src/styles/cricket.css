@@ -6,78 +6,10 @@
   gap: 40px;
 }
 
-/* Shot buttons */
-.shot-button-row {
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: center;
-  line-height: 0;
-}
-
-.shot-button {
-  font-size: 1.5rem;
-  margin-right: 10px;
-  padding: 10px;
-  border-radius: 16px;
-  color: beige;
-
-  &:hover {
-    background-color: green;
-    color: white;
-  }
-
-  &:focus {
-    outline: 2px solid black;
-  }
-}
-
-.shot-button.single,
-.shot-button.pass {
-  background-color: #A1CCD1;
-}
-
-.shot-button.double {
-  background-color: darkorange;
-}
-
-.shot-button.triple {
-  background-color: darkorchid;
-}
-
-.shot-button.single:hover,
-.shot-button.double:hover,
-.shot-button.triple:hover,
-.shot-button.pass:hover {
-  background-color: green;
-  color: white;
-}
-
 @media (max-width: 1300px) {
   .cricket {
     padding: 40px 2vw;
     gap: 4vw;
-  }
-
-  .shot-button-row {
-    margin-bottom: 1vw;
-  }
-
-  .shot-button {
-    font-size: 1.5vw;
-    margin-right: 1vw;
-    padding: 1vw;
-    border-radius: 1.5vw;
-  }
-
-  .info-box span {
-    font-size: 2vw;
-    line-height: 3vw;
-  }
-
-  .info-box button {
-    font-size: 1.5vw;
-    padding: 1vw 2vw;
-    border-radius: 2vw;
   }
 }
 
@@ -93,27 +25,5 @@
 
   .info-box {
     order: 3;
-  }
-
-  .shot-button-row {
-    margin-bottom: 1vw;
-  }
-
-  .shot-button {
-    font-size: 1rem;
-    margin-right: 10px;
-    padding: 10px;
-    border-radius: 15px;
-  }
-
-  .info-box span {
-    font-size: 1.2rem;
-    line-height: 1.5rem;
-  }
-
-  .info-box button {
-    font-size: 1.2rem;
-    padding: 1vw 2vw;
-    border-radius: 2vw;
   }
 }
