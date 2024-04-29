@@ -58,12 +58,18 @@
       color: #4d4d4d;
 
       &:hover {
-        background-color: green;
+        background: green;
         color: white;
       }
 
       &:focus {
         outline: 2px solid darkblue;
+      }
+
+      &:disabled,
+      &:disabled:hover {
+        background: lightgray;
+        color: #4d4d4d;
       }
     }
   }

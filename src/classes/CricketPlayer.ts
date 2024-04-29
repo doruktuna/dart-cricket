@@ -21,6 +21,13 @@ export default class CricketPlayer {
     this.shots[shot] += count;
   }
 
+  subtractShot(shot: string, count: number) {
+    this.shots[shot] -= count;
+    if (this.shots[shot] < 0) {
+      this.shots[shot] = 0;
+    }
+  }
+
   getScore() {
     return this.score;
   }
@@ -35,6 +42,10 @@ export default class CricketPlayer {
       const value = isNaN(Number(shot)) ? 25 : Number(shot);
       this.score += count * value;
     }
+  }
+
+  undoOpponentScoreShot(shot: string, count: number) {
+    this.opponentScoreShot(shot, -count);
   }
 
   restartGame() {

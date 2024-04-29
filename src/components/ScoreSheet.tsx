@@ -55,6 +55,11 @@ function ShotRow(
       shotStr: string;
     }
 ) {
+
+  let isShotClosed =
+    leftPlayers.every(p => p.shots[shotStr] >= 3) &&
+    rightPlayers.every(p => p.shots[shotStr] >= 3);
+
   return (
     <tr key={shotStr} className="score-row">
       {leftPlayers.map(p => (
@@ -63,7 +68,12 @@ function ShotRow(
         </td>
       ))}
 
-      <td key={'shot-cell'} className='shot-cell'>{shotStr}</td>
+      <td key={'shot-cell'} className='shot-cell'>
+        <span>{shotStr}</span>
+        {isShotClosed &&
+          <img src={xMark} alt="X mark icon" className='shot-score-x-mark' />
+        }
+      </td>
 
       {rightPlayers.map((p, i) => (
         <td

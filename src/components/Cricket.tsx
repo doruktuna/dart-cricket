@@ -189,8 +189,49 @@ function Cricket() {
   }
 
   function undoShot() {
-    // TODO: Implement undo logic
-    console.log("UNDO CALLED");
+    console.log("SHOTS:", shots);
+
+    if (shots.length == 0) { return; }
+    const lastShot = shots[shots.length - 1];
+
+    // Undo current player's shot and it's effect on others' scores
+    if (lastShot.shotStr != "PASS") {
+      const shotPlayer = players[lastShot.playerInd];
+      const times = lastShot.times;
+      const shotStr = lastShot.shotStr;
+
+      let scoreTimes = Math.min(times, shotPlayer.shots[shotStr] - 3);
+      scoreTimes = Math.max(0, scoreTimes);
+
+      const newPlayers = players.map(
+        (player, i) => {
+          if (lastShot.playerInd == i) {
+            player.subtractShot(shotStr, times);
+          } else {
+            player.undoOpponentScoreShot(shotStr, scoreTimes);
+          }
+          return player;
+        }
+      )
+      setPlayers(newPlayers);
+    }
+
+    // If it's a pass shot or it's the first shot of a player, give the turn to previous player
+    if (lastShot.shotStr === "PASS" || curShotNo === 1) {
+      setCurShotNo(3);
+
+      if (curPlayerInd == 0) {
+        setCurPlayerInd(players.length - 1);
+        setTurn(prev => prev - 1);
+      } else {
+        setCurPlayerInd(prev => prev - 1);
+      }
+    } else {
+      setCurShotNo(prev => prev - 1);
+    }
+
+    // Remove the last shot
+    setShots(prev => prev.slice(0, -1));
   }
 
   return (

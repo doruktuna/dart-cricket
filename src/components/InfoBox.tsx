@@ -79,11 +79,16 @@ function LastShotsInfo(
 
   return (
     <div className="last-shots-info flex-column-centered">
-      <button onClick={undoShot}>UNDO SHOT</button>
+      <button
+        onClick={undoShot}
+        disabled={shots.length == 0}
+      >
+        UNDO SHOT
+      </button>
       {
         lastShots.map((shot, i) => {
           if (shot == null) {
-            return <p key={i} className="prev-shot"><pre> </pre></p>;
+            return <p key={i} className="prev-shot">&ensp;</p>;
           }
           return <p key={i} className="prev-shot">
             <span>(S{shots.length - i})</span>

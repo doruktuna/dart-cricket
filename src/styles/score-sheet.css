@@ -34,6 +34,18 @@ table.score-sheet {
     line-height: 0;
     display: block;
   }
+
+  .shot-cell {
+    position: relative;
+
+    .shot-score-x-mark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%) scale(1.3);
+      opacity: 1;
+    }
+  }
 }
 
 @media (max-width: 1300px) {
