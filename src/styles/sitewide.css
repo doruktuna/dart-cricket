@@ -8,6 +8,7 @@ body {
 
 * {
   font-family: 'Oswald', sans-serif;
+  box-sizing: border-box;
 }
 
 pre,
@@ -21,4 +22,18 @@ button {
   border: none;
   cursor: pointer;
   padding: 0;
+}
+
+.flex-column-centered {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-row-centered {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
 }

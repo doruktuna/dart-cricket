@@ -10,6 +10,13 @@ import InfoBox from './InfoBox';
 export const MAX_TURNS = 25;
 export const AVAILABLE_SHOTS = ['20', '19', '18', '17', '16', '15', 'BULL'];
 
+export type Shot = {
+  playerName: string,
+  playerInd: number,
+  shotStr: string,
+  times: number
+};
+
 function Cricket() {
   const [players, setPlayers] = useState<CricketPlayer[]>([]);
   const [turn, setTurn] = useState(1);
@@ -18,6 +25,7 @@ function Cricket() {
   const [isGameFinished, setIsGameFinished] = useState(true);
   const [isGettingNames, setIsGettingNames] = useState(true);
   const [winnerNames, setWinnerNames] = useState<string[]>([]);
+  const [shots, setShots] = useState<Shot[]>([]);
 
   // Load data when the page is first loaded
   useEffect(() => {
@@ -36,6 +44,7 @@ function Cricket() {
       setIsGameFinished(data.isGameFinished);
       setIsGettingNames(data.isGettingNames);
       setWinnerNames(data.winnerNames);
+      setShots(data.shots);
       console.log("CRICKET: Loaded data", data);
     }
   }, []);
@@ -49,7 +58,8 @@ function Cricket() {
       curShotNo,
       isGameFinished,
       isGettingNames,
-      winnerNames
+      winnerNames,
+      shots
     }
     localStorage.setItem("CRICKET_DATA", JSON.stringify(saveData));
   }, [players, turn, curPlayerInd, curShotNo, isGameFinished, isGettingNames, winnerNames]);
@@ -72,6 +82,7 @@ function Cricket() {
     setCurPlayerInd(0);
     setCurShotNo(1);
     setIsGameFinished(false);
+    setShots([]);
   }
 
   function restartGame() {
@@ -83,19 +94,27 @@ function Cricket() {
     startGame();
   }
 
-  function dartScored(scoreStr: string, times: number) {
+  function dartScored(shotStr: string, times: number) {
     const curPlayer = players[curPlayerInd];
-    console.log(curPlayer.name + " scored " + scoreStr + ", " + times + " times.");
+    console.log(curPlayer.name + " scored " + shotStr + ", " + times + " times.");
+
+    const newShot: Shot = {
+      playerName: curPlayer.name,
+      playerInd: curPlayer.getInd(),
+      shotStr: shotStr,
+      times: times
+    };
+    setShots(prev => [...prev, newShot]);
 
     // Update current player's shots and other's scores
-    let scoreTimes = Math.min(times, curPlayer.shots[scoreStr] + times - 3);
+    let scoreTimes = Math.min(times, curPlayer.shots[shotStr] + times - 3);
     scoreTimes = Math.max(0, scoreTimes);
 
     const newPlayers = players.map((player, i) => {
       if (curPlayerInd == i) {
-        player.addShot(scoreStr, times);
+        player.addShot(shotStr, times);
       } else {
-        player.opponentScoreShot(scoreStr, scoreTimes);
+        player.opponentScoreShot(shotStr, scoreTimes);
       }
       return player;
     })
@@ -105,13 +124,23 @@ function Cricket() {
 
     const newShotNo = curShotNo + 1;
     if (newShotNo == 4) {
-      passTurn();
+      passTurn(false);
     } else {
       setCurShotNo(newShotNo);
     }
   }
 
-  function passTurn() {
+  function passTurn(isPassClicked = true) {
+    if (isPassClicked) {
+      const newShot: Shot = {
+        playerName: players[curPlayerInd].name,
+        playerInd: players[curPlayerInd].getInd(),
+        shotStr: "PASS",
+        times: 1
+      };
+      setShots(prev => [...prev, newShot]);
+    }
+
     let newPlayerInd = curPlayerInd + 1;
     if (newPlayerInd == players.length) {
       if (turn == MAX_TURNS) {
@@ -159,18 +188,17 @@ function Cricket() {
     setWinnerNames(winnerNames);
   }
 
+  function undoShot() {
+    // TODO: Implement undo logic
+    console.log("UNDO CALLED");
+  }
+
   return (
     <>
       <div key='cricket' className='cricket'>
         {isGettingNames &&
           <PlayerSetupScreen
             nameSetupFinished={nameSetupFinished}
-          />
-        }
-        {!isGettingNames && !isGameFinished &&
-          <ShotButtons
-            dartScored={dartScored}
-            passTurn={passTurn}
           />
         }
         {!isGettingNames &&
@@ -180,15 +208,23 @@ function Cricket() {
             isGameFinished={isGameFinished}
           />
         }
+        {!isGettingNames && !isGameFinished &&
+          <ShotButtons
+            dartScored={dartScored}
+            passTurn={passTurn}
+          />
+        }
         {!isGettingNames &&
           <InfoBox
             curPlayer={players[curPlayerInd]}
             gameTurn={turn}
+            shots={shots}
             curShotNo={curShotNo}
             isGameFinished={isGameFinished}
             winnerNames={winnerNames}
             restartGame={restartGame}
             newGame={newGame}
+            undoShot={undoShot}
           />
         }
       </div >

@@ -6,11 +6,13 @@
 }
 
 .shot-button {
-  font-size: 1.5rem;
+  font-size: 2rem;
   margin-right: 10px;
   padding: 10px;
   border-radius: 16px;
-  color: beige;
+  color: white;
+  min-width: 80px;
+  min-height: 70px;
 
   &:hover {
     background-color: green;
@@ -22,8 +24,7 @@
   }
 }
 
-.shot-button.single,
-.shot-button.pass {
+.shot-button.single {
   background-color: #A1CCD1;
 }
 
@@ -33,6 +34,10 @@
 
 .shot-button.triple {
   background-color: darkorchid;
+}
+
+.shot-button.pass {
+  background-color: darkred;
 }
 
 .shot-button.single:hover,
