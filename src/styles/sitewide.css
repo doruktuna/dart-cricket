@@ -1,5 +1,101 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Protest+Strike&display=swap');
 
+:root {
+  /* Tried #f1356d (pinkish) in the past */
+  --color-main: #dd5f02;
+  --color-btn-game-controls: #A1CCD1;
+  --color-btn-shot-single: #A1CCD1;
+  --color-btn-shot-double: darkorange;
+  --color-btn-shot-triple: darkorchid;
+  --color-btn-shot-pass: darkred;
+
+  --font-size-extra-big: 2rem;
+  --font-size-big: 1.7rem;
+  --font-size-medium: 1.2rem;
+  --font-size-normal: 1rem;
+  --font-size-small: .8rem;
+
+  --icon-size-big: 40px;
+  --icon-size-medium: 30px;
+  --icon-size-normal: 24px;
+  --icon-size-small: 18px;
+}
+
+@media (max-width: 1500px) {
+  :root {
+    --font-size-extra-big: 1.5rem;
+    --font-size-big: 1.2rem;
+    --font-size-medium: 1rem;
+    --font-size-normal: .9rem;
+    --font-size-small: .7rem;
+
+    --icon-size-big: 36px;
+    --icon-size-medium: 26px;
+    --icon-size-normal: 20px;
+    --icon-size-small: 14px;
+  }
+}
+
+@media (max-width: 1300px) {
+  :root {
+    --font-size-extra-big: 1.3rem;
+    --font-size-big: 1.1rem;
+    --font-size-medium: .9rem;
+    --font-size-normal: .8rem;
+    --font-size-small: .6rem;
+
+    --icon-size-big: 32px;
+    --icon-size-medium: 22px;
+  }
+}
+
+@media (max-width: 1000px) {
+  :root {
+    --font-size-extra-big: 2vw;
+    --font-size-big: 1.8vw;
+    --font-size-medium: 1.2vw;
+    --font-size-normal: 1.3vw;
+    --font-size-small: 1.1vw;
+
+    --icon-size-big: 3vw;
+    --icon-size-medium: 2.5vw;
+    --icon-size-normal: 2.2vw;
+    --icon-size-small: 1.5vw;
+  }
+}
+
+/* Sending down the info box at 800px */
+@media (max-width: 800px) {
+  :root {
+    --font-size-extra-big: 2.5vw;
+    --font-size-big: 2.2vw;
+    --font-size-medium: 1.6vw;
+    --font-size-normal: 1.4vw;
+    --font-size-small: 1.2vw;
+
+    --icon-size-big: 3.5vw;
+    --icon-size-medium: 3vw;
+    --icon-size-normal: 2.8vw;
+    --icon-size-small: 2vw;
+  }
+}
+
+/* Sending down both the shot buttons and info box at 650px */
+@media (max-width: 650px) {
+  :root {
+    --font-size-extra-big: 3.5vw;
+    --font-size-big: 3vw;
+    --font-size-medium: 2.5vw;
+    --font-size-normal: 2vw;
+    --font-size-small: 1.5vw;
+
+    --icon-size-big: 4vw;
+    --icon-size-medium: 3.5vw;
+    --icon-size-normal: 3.2vw;
+    --icon-size-small: 2vw;
+  }
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -40,4 +136,8 @@ button {
   flex-flow: row nowrap;
   align-items: center;
   justify-content: center;
+}
+
+.hidden {
+  visibility: hidden;
 }

@@ -1,29 +1,12 @@
 .cricket {
-  padding: 40px;
+  margin: 40px 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   gap: 40px;
-}
 
-@media (max-width: 1300px) {
-  .cricket {
-    padding: 40px 2vw;
-    gap: 4vw;
-  }
-}
-
-@media (max-width: 800px) {
-  .score-sheet {
-    order: 1;
-    width: 100%;
-  }
-
-  .shot-buttons {
-    order: 2;
-  }
-
-  .info-box {
-    order: 3;
+  @media (max-width: 1000px) {
+    gap: 30px;
   }
 }

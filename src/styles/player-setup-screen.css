@@ -1,49 +1,75 @@
 .player-setup {
   background: rgba(255, 255, 255, 0.7);
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
 
   .names-box {
     display: flex;
     flex-direction: column;
+    min-width: 400px;
     max-width: 480px;
     background: #fff;
     padding: 20px;
     border-radius: 10px;
     margin: 10% auto;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+
+    @media (max-width: 500px) {
+      min-width: 85vw;
+    }
   }
 
   h1 {
     text-align: center;
-    color: #f1356d;
+    color: var(--color-main);
     font-size: 2.5rem;
+
+    @media (max-width: 400px) {
+      font-size: 9vw;
+    }
   }
 
   h2 {
     text-align: center;
-    color: #f1356d;
+    color: var(--color-main);
     font-size: 2rem;
     margin-bottom: 1rem;
+
+    @media (max-width: 400px) {
+      font-size: 7vw;
+    }
+  }
+
+  .name-input-div input[type='text'],
+  .name-input-div i,
+  .names-box button {
+    font-size: 1.5rem;
+
+    @media (max-width: 400px) {
+      font-size: 6vw;
+    }
   }
 
   .name-input-div {
+    position: relative;
     margin: 10px auto;
     display: inline-flex;
     flex-flow: row nowrap;
     align-items: center;
 
+    @media (max-width: 400px) {
+      margin: 1.5vw auto;
+    }
+
     input[type='text'] {
-      width: 170px;
       padding: 5px;
-      margin-right: 10px;
     }
 
     button {
       background: none;
+      position: absolute;
+      top: 50%;
+      right: -5px;
+
+      transform: translateX(100%) translateY(-50%);
 
       &,
       img {
@@ -57,21 +83,19 @@
     }
   }
 
-  .name-input-div input[type='text'],
-  .name-input-div i,
-  .names-box button {
-    font-size: 1.5rem;
-  }
-
   .add-button,
   .start-game {
     display: block;
-    margin: 10px auto;
-    background-color: #f1356d;
+    margin: 5px auto;
+    background-color: var(--color-main);
     color: #fff;
     padding: 12px;
     border-radius: 18px;
-    border: green 2px solid;
+    border: darkcyan 2px solid;
+
+    @media (max-width: 400px) {
+      margin: 1.5vw auto;
+    }
 
     &:disabled {
       background-color: gray;
@@ -90,11 +114,5 @@
 
   .add-button {
     margin-top: 1rem;
-  }
-}
-
-@media (max-width: 800px) {
-  .player-setup .names-box {
-    max-width: 300px;
   }
 }

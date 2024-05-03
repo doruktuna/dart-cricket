@@ -4,43 +4,71 @@ import singleMark from '/icons/single-mark.svg';
 import xMark from '/icons/x-mark.svg';
 import circleWithX from '/icons/circle-with-x.svg';
 import CricketPlayer from '../classes/CricketPlayer';
+import dartIcon from '/icons/dart.svg';
 import '../styles/score-sheet.css';
 import { AVAILABLE_SHOTS } from './Cricket';
 
 function NamesRow(
-  { leftPlayers, rightPlayers, curPlayerInd, isGameFinished }:
+  { leftPlayers, rightPlayers, curPlayerInd, isGameFinished, shotNo }:
     {
-      leftPlayers: CricketPlayer[];
-      rightPlayers: CricketPlayer[];
-      curPlayerInd: number;
-      isGameFinished: boolean;
+      leftPlayers: CricketPlayer[],
+      rightPlayers: CricketPlayer[],
+      curPlayerInd: number,
+      isGameFinished: boolean,
+      shotNo: number,
     }
 ) {
-  return (
-    <tr key='names-row' className="name-row">
-      {leftPlayers.map(p => {
-        let classNameStr = 'player-cell';
-        console.log(p);
 
-        if (!isGameFinished && p.getInd() === curPlayerInd) {
-          classNameStr += ' current-player';
+  return (
+    <tr key='names-row' className="names-row">
+      {leftPlayers.map(p => {
+        const isCurPlayer = !isGameFinished && p.getInd() === curPlayerInd;
+        let thClass = isCurPlayer ? 'player-cell current-player' : 'player-cell';
+
+        let dartClasses = ['hidden', 'hidden', 'hidden'];
+        if (isCurPlayer) {
+          for (let i = shotNo; i <= dartClasses.length; i++) {
+            dartClasses[i - 1] = '';
+          }
         }
+
         return (
-          <th key={p.name} className={classNameStr}>{p.name}</th>
+          <th key={p.name} className={thClass}>
+            <div className='dart-icons flex-row-centered'>
+              {
+                dartClasses.map((dartClass, i) =>
+                  <img key={i} src={dartIcon} alt={"Dart Throwing Icon" + i} className={dartClass} />)
+              }
+            </div>
+            <p>{p.name}</p>
+          </th>
         )
       })}
 
       <th key='shot-cell' className='shot-cell'></th>
 
       {rightPlayers.map((p, i) => {
-        let classNameStr = 'player-cell';
-        classNameStr += i === (rightPlayers.length - 1) ? ' no-right-border' : '';
-        if (!isGameFinished && p.getInd() === curPlayerInd) {
-          classNameStr += ' current-player';
+        const isCurPlayer = !isGameFinished && p.getInd() === curPlayerInd;
+        let thClass = isCurPlayer ? 'player-cell current-player' : 'player-cell';
+        thClass += i === (rightPlayers.length - 1) ? ' no-right-border' : '';
+
+        let dartClasses = ['hidden', 'hidden', 'hidden'];
+        if (isCurPlayer) {
+          for (let i = shotNo; i <= dartClasses.length; i++) {
+            dartClasses[i - 1] = '';
+          }
         }
 
         return (
-          <th key={p.name} className={classNameStr} >{p.name}</th>
+          <th key={p.name} className={thClass}>
+            <div className='dart-icons flex-row-centered'>
+              {
+                dartClasses.map((dartClass, i) =>
+                  <img key={i} src={dartIcon} alt="Dart Throwing Icon" className={dartClass} />)
+              }
+            </div>
+            <p>{p.name}</p>
+          </th>
         )
       })}
     </tr >
@@ -61,7 +89,7 @@ function ShotRow(
     rightPlayers.every(p => p.shots[shotStr] >= 3);
 
   return (
-    <tr key={shotStr} className="score-row">
+    <tr key={shotStr} className="shots-row">
       {leftPlayers.map(p => (
         <td key={p.name} className='player-cell'>
           <ShotIcon numShots={p.shots[shotStr]} />
@@ -103,7 +131,7 @@ function ScoresRow(
     }
 ) {
   return (
-    <tr key='scores' className="score-row">
+    <tr key='scores' className="scores-row">
       {leftPlayers.map(p => (
         <td key={p.name} className='player-cell no-bottom-border'>
           {p.getScore()}
@@ -126,11 +154,12 @@ function ScoresRow(
 }
 
 function ScoreSheet(
-  { players, curPlayerInd, isGameFinished }:
+  { players, curPlayerInd, isGameFinished, shotNo }:
     {
       players: CricketPlayer[],
       curPlayerInd: number,
-      isGameFinished: boolean
+      isGameFinished: boolean,
+      shotNo: number,
     }
 ) {
   const divPoint = Math.ceil(players.length / 2);
@@ -145,6 +174,7 @@ function ScoreSheet(
           rightPlayers={rightPlayers}
           curPlayerInd={curPlayerInd}
           isGameFinished={isGameFinished}
+          shotNo={shotNo}
         />
       </thead>
 

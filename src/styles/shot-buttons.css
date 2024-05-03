@@ -1,18 +1,17 @@
 .shot-button-row {
-  margin-bottom: 10px;
   display: flex;
   justify-content: center;
+  margin-bottom: calc(.4 * var(--font-size-extra-big));
   line-height: 0;
 }
 
 .shot-button {
-  font-size: 2rem;
-  margin-right: 10px;
-  padding: 10px;
+  font-size: var(--font-size-extra-big);
+  margin-right: calc(.4 * var(--font-size-extra-big));
   border-radius: 16px;
   color: white;
-  min-width: 80px;
-  min-height: 70px;
+  width: calc(3 * var(--font-size-extra-big));
+  height: calc(2.3 * var(--font-size-extra-big));
 
   &:hover {
     background-color: green;
@@ -25,19 +24,19 @@
 }
 
 .shot-button.single {
-  background-color: #A1CCD1;
+  background-color: var(--color-btn-shot-single);
 }
 
 .shot-button.double {
-  background-color: darkorange;
+  background-color: var(--color-btn-shot-double);
 }
 
 .shot-button.triple {
-  background-color: darkorchid;
+  background-color: var(--color-btn-shot-triple);
 }
 
 .shot-button.pass {
-  background-color: darkred;
+  background-color: var(--color-btn-shot-pass);
 }
 
 .shot-button.single:hover,
@@ -46,30 +45,4 @@
 .shot-button.pass:hover {
   background-color: green;
   color: white;
-}
-
-@media (max-width: 1300px) {
-  .shot-button-row {
-    margin-bottom: 1vw;
-  }
-
-  .shot-button {
-    font-size: 1.5vw;
-    margin-right: 1vw;
-    padding: 1vw;
-    border-radius: 1.5vw;
-  }
-}
-
-@media (max-width: 800px) {
-  .shot-button-row {
-    margin-bottom: 1vw;
-  }
-
-  .shot-button {
-    font-size: 1rem;
-    margin-right: 10px;
-    padding: 10px;
-    border-radius: 15px;
-  }
 }

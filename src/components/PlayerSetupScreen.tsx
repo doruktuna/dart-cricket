@@ -35,6 +35,7 @@ function PlayerSetupScreen({ nameSetupFinished }: PlayerSetupScreenProps) {
       <div className='name-input-div' key={i}>
         <input
           type="text"
+          size={10}
           maxLength={10}
           value={name}
           onChange={e => updatePlayer(e.target.value, i)}
@@ -71,7 +72,7 @@ function PlayerSetupScreen({ nameSetupFinished }: PlayerSetupScreenProps) {
     <div className="player-setup">
       <div className='names-box'>
         <h1>Cricket Scoring</h1>
-        <h2>Names</h2>
+        <h2>Players</h2>
         {names.map((name, i) => NameInput(name, i))}
         <button
           className='add-button'

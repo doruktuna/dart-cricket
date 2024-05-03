@@ -247,6 +247,7 @@ function Cricket() {
             players={players}
             curPlayerInd={curPlayerInd}
             isGameFinished={isGameFinished}
+            shotNo={curShotNo}
           />
         }
         {!isGettingNames && !isGameFinished &&
