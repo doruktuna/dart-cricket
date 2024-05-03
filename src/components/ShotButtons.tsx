@@ -1,4 +1,3 @@
-import React from 'react'
 import '../styles/shot-buttons.css';
 import { AVAILABLE_SHOTS } from './Cricket';
 

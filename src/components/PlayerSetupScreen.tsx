@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../styles/player-setup-screen.css';
 import deleteIcon from '/icons/x-mark.svg';
 
