@@ -8,10 +8,10 @@ import '../styles/score-sheet.css';
 import { AVAILABLE_SHOTS } from './Cricket';
 
 function NamesRow(
-  { leftPlayers, rightPlayers, curPlayerInd, isGameFinished, shotNo }:
+  { players, shotNameCol, curPlayerInd, isGameFinished, shotNo }:
     {
-      leftPlayers: CricketPlayer[],
-      rightPlayers: CricketPlayer[],
+      players: CricketPlayer[],
+      shotNameCol: number,
       curPlayerInd: number,
       isGameFinished: boolean,
       shotNo: number,
@@ -20,54 +20,31 @@ function NamesRow(
 
   return (
     <tr key='names-row' className="names-row">
-      {leftPlayers.map(p => {
-        const isCurPlayer = !isGameFinished && p.getInd() === curPlayerInd;
+      {players.map((p, i) => {
+        const isCurPlayer = !isGameFinished && i === curPlayerInd;
         let thClass = isCurPlayer ? 'player-cell current-player' : 'player-cell';
+        thClass += i === (players.length - 1) ? ' no-right-border' : '';
 
         let dartClasses = ['hidden', 'hidden', 'hidden'];
         if (isCurPlayer) {
-          for (let i = shotNo; i <= dartClasses.length; i++) {
-            dartClasses[i - 1] = '';
+          for (let j = shotNo; j <= dartClasses.length; j++) {
+            dartClasses[j - 1] = '';
           }
         }
 
         return (
-          <th key={p.name} className={thClass}>
-            <div className='dart-icons flex-row-centered'>
-              {
-                dartClasses.map((dartClass, i) =>
-                  <img key={i} src={dartIcon} alt={"Dart Throwing Icon" + i} className={dartClass} />)
-              }
-            </div>
-            <p>{p.name}</p>
-          </th>
-        )
-      })}
-
-      <th key='shot-cell' className='shot-cell'></th>
-
-      {rightPlayers.map((p, i) => {
-        const isCurPlayer = !isGameFinished && p.getInd() === curPlayerInd;
-        let thClass = isCurPlayer ? 'player-cell current-player' : 'player-cell';
-        thClass += i === (rightPlayers.length - 1) ? ' no-right-border' : '';
-
-        let dartClasses = ['hidden', 'hidden', 'hidden'];
-        if (isCurPlayer) {
-          for (let i = shotNo; i <= dartClasses.length; i++) {
-            dartClasses[i - 1] = '';
-          }
-        }
-
-        return (
-          <th key={p.name} className={thClass}>
-            <div className='dart-icons flex-row-centered'>
-              {
-                dartClasses.map((dartClass, i) =>
-                  <img key={i} src={dartIcon} alt="Dart Throwing Icon" className={dartClass} />)
-              }
-            </div>
-            <p>{p.name}</p>
-          </th>
+          <>
+            {i == shotNameCol && <th key='shot-cell' className='shot-cell'></th>}
+            <th key={p.name} className={thClass}>
+              <div className='dart-icons flex-row-centered'>
+                {
+                  dartClasses.map((dartClass, i) =>
+                    <img key={i} src={dartIcon} alt={"Dart Throwing Icon" + i} className={dartClass} />)
+                }
+              </div>
+              <p>{p.name}</p>
+            </th>
+          </>
         )
       })}
     </tr >
@@ -75,40 +52,36 @@ function NamesRow(
 }
 
 function ShotRow(
-  { leftPlayers, rightPlayers, shotStr }:
+  { players, shotNameCol, shotStr }:
     {
-      leftPlayers: CricketPlayer[];
-      rightPlayers: CricketPlayer[];
+      players: CricketPlayer[];
+      shotNameCol: number,
       shotStr: string;
     }
 ) {
 
-  let isShotClosed =
-    leftPlayers.every(p => p.shots[shotStr] >= 3) &&
-    rightPlayers.every(p => p.shots[shotStr] >= 3);
+  let isShotClosed = players.every(p => p.shots[shotStr] >= 3);
 
   return (
     <tr key={shotStr} className="shots-row">
-      {leftPlayers.map(p => (
-        <td key={p.name} className='player-cell'>
-          <ShotIcon numShots={p.shots[shotStr]} />
-        </td>
-      ))}
+      {players.map((p, i) => (
+        <>
+          {i == shotNameCol &&
+            <td key={'shot-cell'} className='shot-cell'>
+              <span>{shotStr}</span>
+              {isShotClosed &&
+                <img src={xMark} alt="X mark icon" className='shot-score-x-mark' />
+              }
+            </td>
+          }
 
-      <td key={'shot-cell'} className='shot-cell'>
-        <span>{shotStr}</span>
-        {isShotClosed &&
-          <img src={xMark} alt="X mark icon" className='shot-score-x-mark' />
-        }
-      </td>
-
-      {rightPlayers.map((p, i) => (
-        <td
-          key={p.name}
-          className={i === (rightPlayers.length - 1) ? 'player-cell no-right-border' : 'player-cell'}
-        >
-          <ShotIcon numShots={p.shots[shotStr]} />
-        </td>
+          <td
+            key={p.name}
+            className={i === (players.length - 1) ? 'player-cell no-right-border' : 'player-cell'}
+          >
+            <ShotIcon numShots={p.shots[shotStr]} />
+          </td>
+        </>
       ))}
     </tr>
   );
@@ -123,31 +96,29 @@ function ShotIcon({ numShots }: { numShots: number }) {
 }
 
 function ScoresRow(
-  { leftPlayers, rightPlayers }:
+  { players, shotNameCol }:
     {
-      leftPlayers: CricketPlayer[];
-      rightPlayers: CricketPlayer[];
+      players: CricketPlayer[];
+      shotNameCol: number,
     }
 ) {
+
   return (
     <tr key='scores' className="scores-row">
-      {leftPlayers.map(p => (
-        <td key={p.name} className='player-cell no-bottom-border'>
-          {p.getScore()}
-        </td>
+      {players.map((p, i) => (
+        <>
+          {shotNameCol == i &&
+            <td key='shot-cell' className='shot-cell no-bottom-border'></td>
+          }
+
+          <td
+            key={p.name}
+            className={i === (players.length - 1) ? 'player-cell no-bottom-border no-right-border' : 'player-cell no-bottom-border'}
+          >
+            {p.getScore()}
+          </td>
+        </>
       ))}
-
-      <td key='shot-cell' className='shot-cell no-bottom-border'></td>
-
-      {rightPlayers.map((p, i) => (
-        <td
-          key={p.name}
-          className={i === (rightPlayers.length - 1) ? 'player-cell no-bottom-border no-right-border' : 'player-cell no-bottom-border'}
-        >
-          {p.getScore()}
-        </td>
-      ))
-      }
     </tr >
   );
 }
@@ -161,16 +132,15 @@ function ScoreSheet(
       shotNo: number,
     }
 ) {
-  const divPoint = Math.ceil(players.length / 2);
-  const leftPlayers = players.filter((_, i) => i < divPoint);
-  const rightPlayers = players.filter((_, i) => i >= divPoint);
+
+  const shotNameCol = players.length == 3 ? 0 : Math.ceil(players.length / 2);
 
   return (
     <table key="score-sheet" className="score-sheet">
       <thead>
         <NamesRow
-          leftPlayers={leftPlayers}
-          rightPlayers={rightPlayers}
+          players={players}
+          shotNameCol={shotNameCol}
           curPlayerInd={curPlayerInd}
           isGameFinished={isGameFinished}
           shotNo={shotNo}
@@ -182,19 +152,18 @@ function ScoreSheet(
           <ShotRow
             key={shotStr}
             shotStr={shotStr}
-            leftPlayers={leftPlayers}
-            rightPlayers={rightPlayers}
+            players={players}
+            shotNameCol={shotNameCol}
           />
         ))}
 
         <ScoresRow
-          leftPlayers={leftPlayers}
-          rightPlayers={rightPlayers}
+          players={players}
+          shotNameCol={shotNameCol}
         />
       </tbody>
     </table >
   );
 }
-
 
 export default ScoreSheet

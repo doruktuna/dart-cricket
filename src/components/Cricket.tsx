@@ -14,7 +14,8 @@ export type Shot = {
   playerName: string,
   playerInd: number,
   shotStr: string,
-  times: number
+  times: number,
+  curShotNo: number,
 };
 
 function Cricket() {
@@ -102,7 +103,8 @@ function Cricket() {
       playerName: curPlayer.name,
       playerInd: curPlayer.getInd(),
       shotStr: shotStr,
-      times: times
+      times: times,
+      curShotNo: curShotNo
     };
     setShots(prev => [...prev, newShot]);
 
@@ -136,7 +138,8 @@ function Cricket() {
         playerName: players[curPlayerInd].name,
         playerInd: players[curPlayerInd].getInd(),
         shotStr: "PASS",
-        times: 1
+        times: 1,
+        curShotNo: curShotNo
       };
       setShots(prev => [...prev, newShot]);
     }
@@ -218,17 +221,14 @@ function Cricket() {
 
     // If it's a pass shot or it's the first shot of a player, give the turn to previous player
     if (lastShot.shotStr === "PASS" || curShotNo === 1) {
-      setCurShotNo(3);
-
       if (curPlayerInd == 0) {
         setCurPlayerInd(players.length - 1);
         setTurn(prev => prev - 1);
       } else {
         setCurPlayerInd(prev => prev - 1);
       }
-    } else {
-      setCurShotNo(prev => prev - 1);
     }
+    setCurShotNo(lastShot.curShotNo);
 
     // Remove the last shot
     setShots(prev => prev.slice(0, -1));
